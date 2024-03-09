@@ -1,6 +1,5 @@
 #include <quick_sort.h>
 #include <stdio.h>
-#include <list.h>
 
 void list_add(node_t **list, node_t *node_t)
 {
