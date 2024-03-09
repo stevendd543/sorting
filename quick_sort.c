@@ -1,26 +1,26 @@
-#include <quick_sort.h>
 #include <stdio.h>
+#include <list.h>
 
-void list_add(node_t **list, node_t *node_t)
+void list_add(node_t **list, node_t *node)
 {
-    node_t->next = *list;
-    *list = node_t;
+    // node_t->next = *list;
+    // *list = node_t;
+    list_add(*list, node);
 }
 
 node_t *list_tail(node_t **left)
 {
-    while ((*left) && (*left)->next)
-        left = &((*left)->next);
-    return *left;
+    return (*left)->prev;
 }
 
 int list_length(node_t **left)
 {
     int n = 0;
-    while (*left) {
+    node_t *tmp;
+    list_for_each(tmp, *left){
         ++n;
-        left = &((*left)->next);
     }
+
     return n;
 }
 
@@ -35,12 +35,16 @@ node_t *list_construct(node_t *list, int n)
 void list_free(node_t **list)
 {
     node_t *node = (*list)->next;
-    while (*list) {
-        free(*list);
-        *list = node;
-        if (node)
-            node = node->next;
+    node_t *safe, *node;
+    list_for_each_safe(node, safe, *list){
+        free(node);
     }
+    // while (*list) {
+    //     free(*list);
+    //     *list = node;
+    //     if (node)
+    //         node = node->next;
+    // }
 }
 
 void quick_sort(node_t **list)

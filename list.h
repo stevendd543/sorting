@@ -32,16 +32,12 @@ extern "C" {
  * actual data. Such container structure is called entry. The helper list_entry
  * can be used to calculate the structure address from the address of the node.
  */
+
+
 struct list_head {
     struct list_head *prev;
     struct list_head *next;
 };
-typedef struct __node {
-    struct __node *left, *right;
-    struct __node *next;
-    long value;
-} node_t;
-
 /**
  * container_of() - Calculate address of structure that contains address ptr
  * @ptr: pointer to member variable
@@ -96,7 +92,9 @@ static inline void INIT_LIST_HEAD(struct list_head *head)
  * @head: pointer to the head of the list
  */
 static inline void list_add(struct list_head *node, struct list_head *head)
-{
+{   
+    if(!head)
+        return;
     struct list_head *next = head->next;
 
     next->prev = node;
